@@ -4,7 +4,6 @@ import com.teamsparta.todoregistration.domain.todo.dto.CreateTodoRequest
 import com.teamsparta.todoregistration.domain.todo.dto.TodoResponse
 import com.teamsparta.todoregistration.domain.todo.dto.UpdateTodoRequest
 import com.teamsparta.todoregistration.domain.todo.service.TodoService
-import com.teamsparta.todoregistration.exception.ModelNotFoundException
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpStatus
