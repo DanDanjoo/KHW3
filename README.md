@@ -98,7 +98,7 @@ ModelNotFoundException은 모델을 찾을 수 없을 때 발생하는 예외 �
 
 
 
-#### ❗infra.swagger - SwaggerConfig는
+#### ❗infra.swagger - SwaggerConfig
 
 SwaggerConfig는 Swagger설정을 정의하는 Spring의 구성 클래스입니다
 
