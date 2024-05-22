@@ -4,7 +4,7 @@ import com.teamsparta.todoregistration.domain.todo.dto.CreateTodoRequest
 import com.teamsparta.todoregistration.domain.todo.dto.TodoResponse
 import com.teamsparta.todoregistration.domain.todo.dto.UpdateTodoRequest
 import com.teamsparta.todoregistration.domain.todo.model.Todo
-import com.teamsparta.todoregistration.domain.todo.extension.toResponse
+import com.teamsparta.todoregistration.domain.todo.model.toResponse
 import com.teamsparta.todoregistration.domain.todo.repository.TodoRepository
 import com.teamsparta.todoregistration.exception.ModelNotFoundException
 import org.springframework.data.repository.findByIdOrNull
@@ -15,8 +15,9 @@ import org.springframework.transaction.annotation.Transactional
 class TodoServiceImpl(
     private val todoRepository: TodoRepository
 ) : TodoService {
+
     override fun getAlltodoList(): List<TodoResponse> {
-        return todoRepository.findAll().toResponse()
+        return todoRepository.findAll().map {it.toResponse()}
     }
 
     override fun getTodoById(id: Long): TodoResponse {
@@ -26,23 +27,26 @@ class TodoServiceImpl(
 
     @Transactional
     override fun createTodo(request: CreateTodoRequest): TodoResponse {
-        return todoRepository.save(
-            Todo(
-                title = request.title,
-                description = request.description,
-            )
-        ).toResponse()
+       val todo = Todo(
+
+           title = request.title,
+           userId = request.userid,
+           description = request.description
+
+       )
+           return todoRepository.save(todo).toResponse()
+
     }
 
     @Transactional
     override fun updateTodo(id: Long, request: UpdateTodoRequest): TodoResponse {
         val todo = todoRepository.findByIdOrNull(id) ?: throw ModelNotFoundException("todo", id)
-        val (title, description) = request
 
-        todo.title = title
-        todo.description = description
+        todo.title = request.title
+        todo.userId = request.userid
+        todo.description = request.description
 
-        return todoRepository.save(todo).toResponse()
+        return  todoRepository.save(todo).toResponse()
     }
 
     @Transactional
@@ -50,8 +54,5 @@ class TodoServiceImpl(
         val todo = todoRepository.findByIdOrNull(id) ?: throw ModelNotFoundException("todo", id)
         todoRepository.delete(todo)
     }
-
-
-
 
 }

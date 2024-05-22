@@ -25,6 +25,13 @@ class TodoListController (
             .body(todoService.createTodo(createTodoRequest))
     }
 
+    @GetMapping()
+    @Operation(summary = "Todo 모두 가져오기", description ="Todo 항목을 모두 검색합니다.")
+    fun getAlltodoList(): ResponseEntity<List<TodoResponse>> {
+            return ResponseEntity
+                .ok()
+                .body(todoService.getAlltodoList())
+    }
 
     @GetMapping("/{id}")
     @Operation(summary = "ID로 Todo 가져오기", description = "ID로 Todo 항목을 검색합니다.")

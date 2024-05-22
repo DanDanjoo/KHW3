@@ -1,5 +1,6 @@
 package com.teamsparta.todoregistration.domain.todo.model
 
+import com.teamsparta.todoregistration.domain.todo.dto.TodoResponse
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
@@ -25,5 +26,14 @@ data class Todo(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
 
-    constructor(description: String, title: String) : this("", "", 0)
+}
+
+fun Todo.toResponse(): TodoResponse {
+    return TodoResponse(
+        id = id!!,
+        title = title,
+        userid = userId,
+        createdAt = createdAt,
+        description = description
+    )
 }
